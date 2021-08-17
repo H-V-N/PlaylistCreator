@@ -7,6 +7,7 @@ using Abp.EntityFrameworkCore.Uow;
 using Abp.MultiTenancy;
 using SpotifyCache.EntityFrameworkCore.Seed.Host;
 using SpotifyCache.EntityFrameworkCore.Seed.Tenants;
+using Abp.Extensions;
 
 namespace SpotifyCache.EntityFrameworkCore.Seed
 {
@@ -14,10 +15,10 @@ namespace SpotifyCache.EntityFrameworkCore.Seed
     {
         public static void SeedHostDb(IIocResolver iocResolver)
         {
-            WithDbContext<SpotifyCacheDbContext>(iocResolver, SeedHostDb);
+            WithDbContext<SpotifyCacheDbContext>(iocResolver, x => SeedHostDb(x));
         }
 
-        public static void SeedHostDb(SpotifyCacheDbContext context)
+        public static void SeedHostDb(SpotifyCacheDbContext context, string csvPath = "")
         {
             context.SuppressAutoSetTenantId = true;
 
@@ -27,6 +28,11 @@ namespace SpotifyCache.EntityFrameworkCore.Seed
             // Default tenant seed (in host database).
             new DefaultTenantBuilder(context).Create();
             new TenantRoleAndUserBuilder(context, 1).Create();
+            if (!csvPath.IsNullOrEmpty())
+            {
+                new SpotifyTracksCreator(context, csvPath).Create();
+            }
+            new BucketCreator(context).Create();
         }
 
         private static void WithDbContext<TDbContext>(IIocResolver iocResolver, Action<TDbContext> contextAction)

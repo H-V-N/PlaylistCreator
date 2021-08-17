@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotifyCache.EntityFrameworkCore;
 
 namespace SpotifyCache.Migrations
 {
     [DbContext(typeof(SpotifyCacheDbContext))]
-    partial class SpotifyCacheDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210817082118_initial-migrations")]
+    partial class initialmigrations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

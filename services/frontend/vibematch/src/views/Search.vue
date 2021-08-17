@@ -91,7 +91,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import debounce from 'lodash.debounce';
-import { SpotifyApi } from '@/services/api';
+import { SpotifyApi } from '@/services/spotify-api';
 import { Track } from 'spotify-web-api-ts/types/types/SpotifyObjects';
 import SearchItem from '@/components/SearchItem.vue';
 export default Vue.extend({

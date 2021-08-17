@@ -34,7 +34,7 @@ namespace SpotifyCache.Migrator
             _connectionStringResolver = connectionStringResolver;
         }
 
-        public bool Run(bool skipConnVerification)
+        public bool Run(MigratorOptions options)
         {
             var hostConnStr = CensorConnectionString(_connectionStringResolver.GetNameOrConnectionString(new ConnectionStringResolveArgs(MultiTenancySides.Host)));
             if (hostConnStr.IsNullOrWhiteSpace())
@@ -44,7 +44,7 @@ namespace SpotifyCache.Migrator
             }
 
             _log.Write("Host database: " + ConnectionStringHelper.GetConnectionString(hostConnStr));
-            if (!skipConnVerification)
+            if (!options.Quiet)
             {
                 _log.Write("Continue to migration for this host database and all tenants..? (Y/N): ");
                 var command = Console.ReadLine();
@@ -59,7 +59,7 @@ namespace SpotifyCache.Migrator
 
             try
             {
-                _migrator.CreateOrMigrateForHost(SeedHelper.SeedHostDb);
+                _migrator.CreateOrMigrateForHost(x =>SeedHelper.SeedHostDb(x, options.Path));
             }
             catch (Exception ex)
             {

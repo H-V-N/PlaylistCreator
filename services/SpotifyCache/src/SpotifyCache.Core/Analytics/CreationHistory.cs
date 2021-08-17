@@ -1,6 +1,7 @@
 ﻿using Abp.Domain.Entities;
 using Abp.Domain.Entities.Auditing;
 using SpotifyCache.Domain;
+using SpotifyCache.Domain.Tracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;

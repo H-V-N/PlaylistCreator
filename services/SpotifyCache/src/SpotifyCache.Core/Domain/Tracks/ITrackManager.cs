@@ -24,5 +24,12 @@ namespace SpotifyCache.Domain.Tracks
         /// <param name="allBuckets">an existing list of buckets pulled from the database</param>
         /// <returns></returns>
         IEnumerable<PercentileBucket> GetBuckets(Track entity, IEnumerable<PercentileBucket> allBuckets);
+
+        /// <summary>
+        /// Batch inserts a list of tracks
+        /// </summary>
+        /// <param name="entities"></param>
+        /// <returns></returns>
+        Task CreateTracks(List<Track> entities);
     }
 }

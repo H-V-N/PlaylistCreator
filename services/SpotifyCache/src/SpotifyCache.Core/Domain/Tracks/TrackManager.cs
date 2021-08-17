@@ -24,9 +24,9 @@ namespace SpotifyCache.Domain.Tracks
         public IEnumerable<PercentileBucket> GetBuckets(Track entity, IEnumerable<PercentileBucket> allBuckets)
         {
             return allBuckets.GroupBy(
-                x => x.Statistic, 
+                x => x.Statistic,
                 (key, group) => group
-                    .FirstOrDefault(bucket => bucket.Min < entity.GetStatistic(key) 
+                    .FirstOrDefault(bucket => bucket.Min < entity.GetStatistic(key)
                         && bucket.Max >= entity.GetStatistic(key)
                     ));
         }
@@ -44,7 +44,10 @@ namespace SpotifyCache.Domain.Tracks
                 await _trackRepository.InsertAsync(entity);
                 foreach (var bucket in GetBuckets(entity, buckets))
                 {
-                    bucket.Count++;
+                    if(bucket != null)
+                    {
+                        bucket.Count++;
+                    }
                 }
             }
         }

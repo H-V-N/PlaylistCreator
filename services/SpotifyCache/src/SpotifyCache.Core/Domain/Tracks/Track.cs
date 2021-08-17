@@ -30,8 +30,6 @@ namespace SpotifyCache.Domain.Tracks
     public class Track : Entity<string>
     {
         public string Name { get; set; }
-        public string Album { get; set; }
-        public string AlbumId { get; set; }
         public string Artists { get; set; }
         public string ArtistIds { get; set; }
         public float Danceability { get; set; }

@@ -1,4 +1,4 @@
-import { SpotifyApi } from '@/services/api';
+import { SpotifyApi } from '@/services/spotify-api';
 import { StorageInstance } from '@/utils/async-storage';
 import { PrivateUser } from 'spotify-web-api-ts/types/types/SpotifyObjects';
 import Vue from 'vue';
@@ -57,6 +57,7 @@ export default new Vuex.Store<RootState>({
           //too much effort to set up a web worker,
           //this should suffice for a proof of concept
           setTimeout(() => {
+            console.log('DISPATCHING ACTION FROM TIMER');
             dispatch('checkLoggedIn');
           }, diff);
           SpotifyApi.setAccessToken(res.access_token);

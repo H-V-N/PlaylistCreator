@@ -1,7 +1,9 @@
 ﻿using Abp.Domain.Entities;
+using SpotifyCache.Domain.Tracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,5 +30,27 @@ namespace SpotifyCache.Analytics
         Valence,
         Tempo,
         DurationMs,
+    }
+
+    public static class StatisticsExtensions
+    {
+
+        public static Expression<Func<Track, float>> ToExpression(this Statistic statistic)
+        {
+            return statistic switch
+            {
+                Statistic.Danceability => x => x.Danceability,
+                Statistic.Energy => x => x.Energy,
+                Statistic.Loudness => x => x.Loudness,
+                Statistic.Speechiness => x => x.Speechiness,
+                Statistic.Acousticness => x => x.Acousticness,
+                Statistic.Instrumentalness => x => x.Instrumentalness,
+                Statistic.Liveness => x => x.Liveness,
+                Statistic.Valence => x => x.Valence,
+                Statistic.Tempo => x => x.Tempo,
+                Statistic.DurationMs => x => x.DurationMs,
+                _ => x => x.Danceability,
+            };
+        }
     }
 }
