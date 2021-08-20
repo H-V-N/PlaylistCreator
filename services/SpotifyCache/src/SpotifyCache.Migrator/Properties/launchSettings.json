@@ -1,7 +1,8 @@
 {
   "profiles": {
     "SpotifyCache.Migrator": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "-p C:\\Users\\Elect\\Downloads\\archive"
     }
   }
 }

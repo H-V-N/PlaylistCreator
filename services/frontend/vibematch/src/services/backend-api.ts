@@ -1,6 +1,7 @@
 import { CreateApi } from './base';
 import { CacheRoute } from './cache';
 import { AnalyticsRoute } from './analytics';
+import { PlaylistsRoute } from './playlists';
 
 export const BackendApi = CreateApi(
   {
@@ -12,6 +13,7 @@ export const BackendApi = CreateApi(
   },
   {
     CacheRoute,
-    AnalyticsRoute
+    AnalyticsRoute,
+    PlaylistsRoute
   }
 );

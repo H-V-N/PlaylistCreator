@@ -6,15 +6,15 @@ using SpotifyCache.MultiTenancy;
 using SpotifyCache.Analytics;
 using SpotifyCache.Domain.Tracks;
 using SpotifyCache.Domain;
+using SpotifyCache.Analytics.Playlists;
 
 namespace SpotifyCache.EntityFrameworkCore
 {
     public class SpotifyCacheDbContext : AbpZeroDbContext<Tenant, Role, User, SpotifyCacheDbContext>
     {
         /* Define a DbSet for each entity of the application */
-        public DbSet<CreationHistory> CreationHistories { get; set; }
+        public DbSet<Playlist> Playlists { get; set; }
         public DbSet<PercentileBucket> PercentileBuckets { get; set; }
-        public DbSet<PlayerEvent> PlayerEvents { get; set; }
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Artist> Artists { get; set; }
 

@@ -8,13 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SpotifyCache.Analytics
+namespace SpotifyCache.Analytics.Playlists
 {
-    public class CreationHistory : Entity<string>, IHasCreationTime
+    //todo: eventually would be interesting to store KNN weights and parameters, and apply
+    //an unsupervised neural network to adjust params on the fly. out of scope for right now.
+    public class Playlist : Entity<string>, IHasCreationTime
     {
         public string TrackId { get; set; }
         public Track Track { get; set; }
 
         public DateTime CreationTime { get; set; }
+        public int LikeCount { get; set; }
+        public int DislikeCount { get; set; }
     }
 }
