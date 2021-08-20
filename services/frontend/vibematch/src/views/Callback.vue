@@ -1,17 +1,21 @@
 <template>
-  <Unauthorized />
+  <Unauthorized :loading="loading" :error="error" />
 </template>
 
 <script lang="ts">
 import Unauthorized from '@/components/Unauthorized.vue';
+import { LoginManager } from '@/utils/login-manager';
 import Vue from 'vue';
-import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'Callback',
   components: {
     Unauthorized
   },
+  data: () => ({
+    loading: true,
+    error: ''
+  }),
   mounted() {
     //hacky solution for converting the url hash to a querystring,
     // which is easier to use with router
@@ -19,10 +23,12 @@ export default Vue.extend({
       const newPath = this.$route.fullPath.replace('#', '?');
       this.$router.replace(newPath);
     }
-    this.onCallback({ ...this.$route.query });
-  },
-  methods: {
-    ...mapActions(['onCallback'])
+    LoginManager.handleLoginResponse({
+      ...this.$route.query
+    } as unknown as SpotifyCallback<number> & { error?: string })
+      .then(() => this.$router.push({ name: 'Search' }))
+      .catch((e) => (this.error = e))
+      .finally(() => (this.loading = false));
   }
 });
 </script>

@@ -27,10 +27,11 @@ namespace SpotifyCache
         private readonly IWebHostEnvironment _env;
         private readonly IConfigurationRoot _appConfiguration;
 
-        public SpotifyCacheWebCoreModule(IWebHostEnvironment env)
+        public SpotifyCacheWebCoreModule(IWebHostEnvironment env, SpotifyCacheEntityFrameworkModule abpProjectNameEntityFrameworkModule)
         {
             _env = env;
             _appConfiguration = env.GetAppConfiguration();
+            abpProjectNameEntityFrameworkModule.SkipDbSeed = true;
         }
 
         public override void PreInitialize()

@@ -17,7 +17,7 @@ namespace SpotifyCache.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.3");
+                .HasAnnotation("ProductVersion", "5.0.9");
 
             modelBuilder.Entity("Abp.Application.Editions.Edition", b =>
                 {
@@ -1651,6 +1651,9 @@ namespace SpotifyCache.Migrations
                         .HasColumnType("real");
 
                     b.Property<float>("Valence")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Year")
                         .HasColumnType("real");
 
                     b.HasKey("Id");

@@ -1,9 +1,17 @@
-import axios from "axios";
+import { CreateApi } from './base';
+import { CacheRoute } from './cache';
+import { AnalyticsRoute } from './analytics';
 
-export const BackendApi = axios.create({
-  baseURL: process.env.VUE_APP_URL,
-  timeout: 30000,
-  headers: {
-    'Content-Type': 'application/json'
+export const BackendApi = CreateApi(
+  {
+    baseURL: process.env.VUE_APP_CACHE_API,
+    timeout: 30000,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  },
+  {
+    CacheRoute,
+    AnalyticsRoute
   }
-});
+);

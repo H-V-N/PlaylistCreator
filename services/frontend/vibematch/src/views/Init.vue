@@ -1,22 +1,29 @@
 <template>
-  <Unauthorized />
+  <Unauthorized :loading="loading" />
 </template>
 
 <script lang="ts">
 import Unauthorized from '@/components/Unauthorized.vue';
+import { LoginManager } from '@/utils/login-manager';
 import Vue from 'vue';
-import { mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'Init',
   components: {
     Unauthorized
   },
+  data: () => ({
+    loading: true
+  }),
   beforeMount() {
-    this.checkLoggedIn(true);
+    this.initialize();
   },
   methods: {
-    ...mapActions(['checkLoggedIn'])
+    initialize() {
+      LoginManager.checkAccessToken()
+        .then(() => this.$router.push('/search'))
+        .catch(() => (this.loading = false));
+    }
   }
 });
 </script>

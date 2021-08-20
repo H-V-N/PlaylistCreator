@@ -1,3 +1,4 @@
+import { LoginManager } from '@/utils/login-manager';
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
@@ -20,6 +21,13 @@ const routes: Array<RouteConfig> = [
     name: 'Search',
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/Search.vue')
+  },
+  {
+    path: '/playlist/:id',
+    name: 'Playlist',
+    component: () =>
+      import(/* webpackChunkName: "playlist" */ '../views/Playlist.vue'),
+    props: true
   }
 ];
 
@@ -27,6 +35,13 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.name === 'Callback' || to.name === 'Init') return next();
+  LoginManager.checkAccessToken()
+    .then(() => next())
+    .catch(() => next({ name: 'Init' }));
 });
 
 export default router;

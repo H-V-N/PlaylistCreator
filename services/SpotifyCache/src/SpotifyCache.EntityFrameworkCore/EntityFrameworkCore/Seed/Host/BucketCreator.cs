@@ -25,44 +25,33 @@ namespace SpotifyCache.EntityFrameworkCore.Seed.Host
             var totalTracks = _context.Tracks.Count()+1;
             if (totalTracks < 100) return; //not enough data to calculate accurate buckets
 
-            var lowerIndex = totalTracks / 4;
-            var upperIndex = lowerIndex * 3;
-
             foreach(var stat in Enum.GetValues(typeof(Statistic)).Cast<Statistic>())
             {
-                CreateStatBucket(stat, lowerIndex, upperIndex);
+                CreateStatBucket(stat);
             }
             _context.SaveChanges();
         }
 
-        private void CreateStatBucket(Statistic stat, int lowerIndex, int upperIndex)
+        private void CreateStatBucket(Statistic stat, int buckets = 20)
         {
             var initialQuery = _context.Tracks.AsQueryable()
                     .Select(stat.ToExpression())
                     .OrderBy(x => x);
 
-            var lower = initialQuery.Skip(lowerIndex).First();
-            var upper = initialQuery.Skip(upperIndex).First();
-            var outlierThreshold = (upper - lower) * 1.5f;
-            lower -= outlierThreshold;
-            upper += outlierThreshold;
-            var increment = (upper - lower) / 20;
-            
-            for(var i = 0; i < 20; i++)
-            {
-                var bucket = new PercentileBucket
-                {
-                    Min = lower * i,
-                    Max = lower * (i + 1),
-                    Statistic = stat,
-                    Count = 0
-                };
-                bucket.Count = _context.Tracks.AsQueryable()
-                        .Select(stat.ToExpression())
-                        .Where(x => x >= bucket.Min && x < bucket.Max)
-                        .Count();
+            var tracksPerBucket = initialQuery.Count() / buckets;
 
-                _context.PercentileBuckets.Add(bucket);
+            var min = initialQuery.First();
+            for(var i = 0; i < buckets; i++)
+            {
+                var max = initialQuery.Skip(((i + 1) * tracksPerBucket) - 1).First();
+                _context.PercentileBuckets.Add(new PercentileBucket
+                {
+                    Min = min,
+                    Max = max,
+                    Statistic = stat,
+                    Count = i
+                });
+                min = max;
             }
 
         }

@@ -12,6 +12,7 @@ namespace SpotifyCache.Cache.Dto
     {
         public string Id { get; set; }
         public string Name { get; set; }
+        public SimpleAlbumDto Album { get; set; }
         public List<SimpleArtistDto> Artists { get; set; }
         public float Danceability { get; set; }
         public float Energy { get; set; }
@@ -28,6 +29,7 @@ namespace SpotifyCache.Cache.Dto
         //usually we use camelcase but this is coming directly from spotify
         [JsonProperty("duration_ms")]
         public int DurationMs { get; set; }
+        public float Year { get; set; }
     }
 
 
@@ -35,5 +37,11 @@ namespace SpotifyCache.Cache.Dto
     {
         public string Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class SimpleAlbumDto
+    {
+        [JsonProperty("release_date")]
+        public string Year { get; set; }
     }
 }

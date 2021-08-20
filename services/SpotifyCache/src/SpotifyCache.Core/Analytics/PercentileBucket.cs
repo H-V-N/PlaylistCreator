@@ -17,7 +17,7 @@ namespace SpotifyCache.Analytics
         public float Max { get; set; }
         public int Count { get; set; }
     }
-
+    
     public enum Statistic
     {
         Danceability,

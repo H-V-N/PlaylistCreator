@@ -6,7 +6,7 @@
       height="30"
       class="loader"
     />
-    <v-row v-else-if="!user" align="center" justify="center">
+    <v-row v-else align="center" justify="center">
       <v-col cols="12" sm="10" md="8" lg="6" xl="4">
         <v-sheet
           color="rgba(0,0,0,0.7)"
@@ -41,25 +41,24 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions, mapState } from 'vuex';
+import { LoginManager } from '@/utils/login-manager';
 
 export default Vue.extend({
   name: 'Unauthorized',
-  computed: {
-    ...mapState(['loading', 'user', 'error']),
-    shouldNavigateToSearch() {
-      return !this.loading && !!this.user;
-    }
-  },
-  watch: {
-    shouldNavigateToSearch(val) {
-      if (val) {
-        this.$router.replace('/search');
-      }
+  props: {
+    loading: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    error: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   methods: {
-    ...mapActions(['login'])
+    login: LoginManager.login
   }
 });
 </script>

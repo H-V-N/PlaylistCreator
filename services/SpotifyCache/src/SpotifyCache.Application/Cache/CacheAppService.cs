@@ -15,18 +15,19 @@ namespace SpotifyCache.Cache
     {
         private readonly IRepository<Artist, string> _artistRepository;
         private readonly IRepository<Track, string> _trackRepository;
-        private readonly ITrackManager _trackManager;
 
-        public CacheAppService(IRepository<Artist, string> artistRepository, IRepository<Track, string> trackRepository, ITrackManager trackManager)
+        public CacheAppService(IRepository<Artist, string> artistRepository, IRepository<Track, string> trackRepository)
         {
             _artistRepository = artistRepository;
             _trackRepository = trackRepository;
-            _trackManager = trackManager;
         }
 
         public async Task AddTracks(AddTracksInputDto input)
         {
-            await _trackManager.CreateTracks(ObjectMapper.Map<List<Track>>(input.Tracks));
+            foreach(var track in input.Tracks)
+            {
+                await _trackRepository.InsertAsync(ObjectMapper.Map<Track>(track));
+            }
             var artistsToUpdate = _artistRepository.GetAll()
                     .Where(x => input.ArtistIds.Contains(x.Id));
             foreach(var artist in artistsToUpdate)

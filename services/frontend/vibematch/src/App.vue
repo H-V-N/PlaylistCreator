@@ -8,7 +8,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
-export default Vue.extend({ name: 'App' });
+import { mapActions } from 'vuex';
+export default Vue.extend({
+  name: 'App',
+  created() {
+    this.populateStats();
+  },
+  methods: {
+    ...mapActions('statistics', ['populateStats'])
+  }
+});
 </script>
 
 <style>

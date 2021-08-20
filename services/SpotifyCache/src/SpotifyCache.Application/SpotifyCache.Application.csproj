@@ -13,4 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SpotifyCache.Core\SpotifyCache.Core.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Analytics\Dto\" />
+  </ItemGroup>
 </Project>

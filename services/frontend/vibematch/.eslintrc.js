@@ -16,11 +16,11 @@ module.exports = {
     sourceType: 'module',
     ecmaVersion: 2020
   },
-  ignorePatterns: ['services/'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'vue/component-name-in-template-casing': ['error', 'PascalCase']
+    'vue/component-name-in-template-casing': ['error', 'PascalCase'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off'
   }
 };
 

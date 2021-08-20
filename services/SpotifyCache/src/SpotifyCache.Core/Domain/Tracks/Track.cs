@@ -46,6 +46,7 @@ namespace SpotifyCache.Domain.Tracks
         //this should be an int, but its cleaner to treat it the
         //same as the rest of the statistics
         public float DurationMs { get; set; } 
+        public float Year { get; set; }
 
         //yikes... ran into this pattern before, I wonder
         //if theres a better way to map enums to types/variables.
