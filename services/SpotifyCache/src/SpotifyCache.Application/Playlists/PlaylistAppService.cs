@@ -13,19 +13,19 @@ namespace SpotifyCache.Playlists
 {
     public class PlaylistAppService : SpotifyCacheAppServiceBase, IPlaylistAppService
     {
-        private readonly IRepository<Playlist, string> _playlistRepository;
+        private readonly IRepository<Playlist, Guid> _playlistRepository;
         private readonly ITrackManager _trackManager;
 
-        public PlaylistAppService(IRepository<Playlist, string> playlistRepository, ITrackManager trackManager)
+        public PlaylistAppService(IRepository<Playlist, Guid> playlistRepository, ITrackManager trackManager)
         {
             _playlistRepository = playlistRepository;
             _trackManager = trackManager;
         }
 
-        public async Task<PlaylistDto> CreatePlaylist(string trackId)
+        public async Task<PlaylistDto> CreatePlaylist(CreatePlaylistDto input)
         {
-            var relatedTracks = await _trackManager.FindRelatedTrackIds(trackId);
-            var playlistId = await _playlistRepository.InsertAndGetIdAsync(new Playlist { TrackId = trackId });
+            var relatedTracks = await _trackManager.FindRelatedTrackIds(input.TrackId);
+            var playlistId = await _playlistRepository.InsertAndGetIdAsync(new Playlist { TrackId = input.TrackId });
             return new PlaylistDto
             {
                 PlaylistId = playlistId,
@@ -33,10 +33,10 @@ namespace SpotifyCache.Playlists
             };
         }
 
-        public async Task<DetailedPlaylistDto> CreateDetailedPlaylist(string trackId)
+        public async Task<DetailedPlaylistDto> CreateDetailedPlaylist(CreatePlaylistDto input)
         {
-            var myTracks = await _trackManager.FindRelatedTracks(trackId);
-            var playlistId = await _playlistRepository.InsertAndGetIdAsync(new Playlist { TrackId = trackId });
+            var myTracks = await _trackManager.FindRelatedTracks(input.TrackId);
+            var playlistId = await _playlistRepository.InsertAndGetIdAsync(new Playlist { TrackId = input.TrackId });
             return new DetailedPlaylistDto
             {
                 PlaylistId = playlistId,
@@ -44,15 +44,15 @@ namespace SpotifyCache.Playlists
             };
         }
 
-        public async Task UpdateLikes(string playlistId)
+        public async Task UpdateLikes(UpdatePlaylistDto input)
         {
-            var playlist = await _playlistRepository.GetAsync(playlistId);
+            var playlist = await _playlistRepository.GetAsync(input.PlaylistId);
             playlist.LikeCount++;
         }
 
-        public async Task UpdateDislikes(string playlistId)
+        public async Task UpdateDislikes(UpdatePlaylistDto input)
         {
-            var playlist = await _playlistRepository.GetAsync(playlistId);
+            var playlist = await _playlistRepository.GetAsync(input.PlaylistId);
             playlist.DislikeCount++;
         }
     }

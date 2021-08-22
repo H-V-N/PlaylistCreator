@@ -43,7 +43,7 @@ export class CacheRoute extends ApiRoute {
    */
   private _getArtistIdsToSearch = async (
     ids: string[],
-    maxPulls = 3,
+    maxPulls = 1,
     songs: Set<string> = new Set(),
     pulledArtists: Set<string> = new Set()
   ): Promise<string[]> => {
@@ -87,8 +87,7 @@ export class CacheRoute extends ApiRoute {
   };
 
   getArtistIdsToSearch = (input: Track) =>
-    new Promise<string[]>((res) => res(input.artists.map((x) => x.id)));
-  //this._getArtistIdsToSearch(input.artists.map((x) => x.id));
+    this._getArtistIdsToSearch(input.artists.map((x) => x.id));
 
   /**
    * checks which track ids we do not have stored in the backend
@@ -96,15 +95,12 @@ export class CacheRoute extends ApiRoute {
    * @returns tracks to get detailed features for
    */
   getTracksToAdd = (tracks: Record<string, Track>) =>
-    this.get<string[]>(
-      `/getTracksToAdd?${Object.keys(tracks)
-        .map((x) => `input=${x}`)
-        .join('&')}`
-    ).then((result) =>
-      result.data.reduce<Record<string, Track>>((obj, id) => {
-        obj[id] = tracks[id];
-        return obj;
-      }, {})
+    this.post<string[]>('/tracksToAdd', { tracks: Object.keys(tracks) }).then(
+      (result) =>
+        result.data.reduce<Record<string, Track>>((obj, id) => {
+          obj[id] = tracks[id];
+          return obj;
+        }, {})
     );
 
   addTracks = (input: AddTracksInputDto) => this.post('/addTracks', input);

@@ -12,7 +12,7 @@ namespace SpotifyCache.Analytics.Playlists
 {
     //todo: eventually would be interesting to store KNN weights and parameters, and apply
     //an unsupervised neural network to adjust params on the fly. out of scope for right now.
-    public class Playlist : Entity<string>, IHasCreationTime
+    public class Playlist : Entity<Guid>, IHasCreationTime
     {
         public string TrackId { get; set; }
         public Track Track { get; set; }

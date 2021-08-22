@@ -9,7 +9,7 @@ namespace SpotifyCache.Playlists.Dto
 {
     public class DetailedPlaylistDto
     {
-        public string PlaylistId { get; set; }
+        public Guid PlaylistId { get; set; }
 
         public List<Track> Tracks { get; set; }
     }

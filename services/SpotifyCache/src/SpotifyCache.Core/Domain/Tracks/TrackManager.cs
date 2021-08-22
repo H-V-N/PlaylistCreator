@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.Domain.Services;
+using Microsoft.EntityFrameworkCore;
 using SpotifyCache.Analytics.MachineLearning;
 using System;
 using System.Collections.Generic;
@@ -23,16 +24,18 @@ namespace SpotifyCache.Domain.Tracks
         public async Task<List<Track>> FindRelatedTracks(string targetTrackId)
         {
             var ids = await FindRelatedTrackIds(targetTrackId);
-            ids.Prepend(targetTrackId);
+            ids = ids.Prepend(targetTrackId).ToList();
             return _trackRepository.GetAll()
+                    .AsNoTracking()
                     .Where(x => ids.Contains(x.Id))
+                    .AsEnumerable()
                     .OrderBy(x => ids.IndexOf(x.Id))
                     .ToList();
         }
 
         public async Task<List<string>> FindRelatedTrackIds(string targetTrackId)
         {
-            var allTracks = await _trackRepository.GetAllListAsync();
+            var allTracks = await _trackRepository.GetAll().AsNoTracking().ToListAsync();
             var targetTrack =  allTracks.Find(x => x.Id == targetTrackId);
             allTracks.Remove(targetTrack);
             return _algorithm.Predict(targetTrack, allTracks);

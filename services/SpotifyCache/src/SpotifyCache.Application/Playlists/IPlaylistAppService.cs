@@ -9,9 +9,9 @@ namespace SpotifyCache.Playlists
 {
     public interface IPlaylistAppService
     {
-        public Task<PlaylistDto> CreatePlaylist(string trackId);
-        public Task<DetailedPlaylistDto> CreateDetailedPlaylist(string trackId);
-        public Task UpdateLikes(string playlistId);
-        public Task UpdateDislikes(string playlistId);
+        public Task<PlaylistDto> CreatePlaylist(CreatePlaylistDto input);
+        public Task<DetailedPlaylistDto> CreateDetailedPlaylist(CreatePlaylistDto input);
+        public Task UpdateLikes(UpdatePlaylistDto input);
+        public Task UpdateDislikes(UpdatePlaylistDto input);
     }
 }

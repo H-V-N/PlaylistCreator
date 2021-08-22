@@ -1,4 +1,5 @@
-﻿using SpotifyCache.Domain.Tracks;
+﻿using Abp.Dependency;
+using SpotifyCache.Domain.Tracks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace SpotifyCache.Analytics.MachineLearning.KNearestNeighbors
 {
     public class KnnConfig : IKnnConfig
     {
-        public int FeatureCount { get; } = 4;
+        public int FeatureCount { get; } = 5;
 
         public int NeighborCount { get; } = 20;
 

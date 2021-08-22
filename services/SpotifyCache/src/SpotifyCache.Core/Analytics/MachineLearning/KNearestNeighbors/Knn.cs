@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KdTree;
 using KdTree.Math;
+using Abp.Dependency;
 
 namespace SpotifyCache.Analytics.MachineLearning.KNearestNeighbors
 {

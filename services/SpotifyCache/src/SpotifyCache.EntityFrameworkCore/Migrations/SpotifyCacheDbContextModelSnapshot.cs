@@ -1352,8 +1352,9 @@ namespace SpotifyCache.Migrations
 
             modelBuilder.Entity("SpotifyCache.Analytics.Playlists.Playlist", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");

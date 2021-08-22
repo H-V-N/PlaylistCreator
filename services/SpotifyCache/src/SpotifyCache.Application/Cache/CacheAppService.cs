@@ -36,13 +36,13 @@ namespace SpotifyCache.Cache
             }
         }
 
-        public List<string> GetTracksToAdd(List<string> input)
+        public List<string> TracksToAdd(TracksToAddDto input)
         {
             var query = _trackRepository.GetAll()
                 .Select(x => x.Id)
-                .Where(x => input.Contains(x));
+                .Where(x => input.Tracks.Contains(x));
 
-            return input.Except(query).ToList();
+            return input.Tracks.Except(query).ToList();
         }
 
         public async Task<List<RelatedArtistOutputDto>> RelatedArtists(RelatedArtistInputDto input)
@@ -64,7 +64,7 @@ namespace SpotifyCache.Cache
                 {
                     entity.SearchedRelatedArtists = true;
                 }
-                if(entity.LastSearchedSongs < timeWindow)
+                if(entity.LastSearchedSongs == null || entity.LastSearchedSongs < timeWindow)
                 {
                     var output = new RelatedArtistOutputDto
                     {

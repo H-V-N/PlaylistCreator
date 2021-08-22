@@ -1,10 +1,16 @@
 <template>
   <div>
-    <v-icon small class="mr-2" @click="songFeedback('like')">
-      {{ value === 'like' ? 'thumbs-up' : 'thumbs-up-outline' }}
+    <v-icon dark color="white" small class="mr-2" @click="songFeedback('like')">
+      {{ value === 'like' ? 'mdi-thumb-up' : 'mdi-thumb-up-outline' }}
     </v-icon>
-    <v-icon small class="mr-2" @click="songFeedback('dislike')">
-      {{ value === 'dislike' ? 'thumbs-down' : 'thumbs-down-outline' }}
+    <v-icon
+      dark
+      color="white"
+      small
+      class="mr-2"
+      @click="songFeedback('dislike')"
+    >
+      {{ value === 'dislike' ? 'mdi-thumb-down' : 'mdi-thumb-down-outline' }}
     </v-icon>
   </div>
 </template>

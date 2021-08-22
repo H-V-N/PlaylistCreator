@@ -13,6 +13,7 @@
 import { Track } from 'spotify-web-api-ts/types/types/SpotifyObjects';
 import Vue, { PropType } from 'vue';
 import '@types/spotify-web-playback-sdk';
+import { parseArtistsFromSpotify } from '@/utils/parse-artists';
 export default Vue.extend({
   props: {
     track: {
@@ -28,7 +29,7 @@ export default Vue.extend({
   }),
   computed: {
     artists(): string {
-      return this.track.artists.map((el) => el.name).join(', ');
+      return parseArtistsFromSpotify(this.track.artists);
     }
   },
   mounted() {

@@ -6,7 +6,8 @@ import { PlaylistsRoute } from './playlists';
 export const BackendApi = CreateApi(
   {
     baseURL: process.env.VUE_APP_CACHE_API,
-    timeout: 30000,
+    timeout: 45000,
+    withCredentials: true,
     headers: {
       'Content-Type': 'application/json'
     }

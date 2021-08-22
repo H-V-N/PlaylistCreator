@@ -10,7 +10,7 @@ namespace SpotifyCache.Cache
     public interface ICacheAppService
     {
         public Task<List<RelatedArtistOutputDto>> RelatedArtists(RelatedArtistInputDto input);
-        public List<string> GetTracksToAdd(List<string> input);
+        public List<string> TracksToAdd(TracksToAddDto input);
         public Task AddTracks(AddTracksInputDto input);
     }
 }

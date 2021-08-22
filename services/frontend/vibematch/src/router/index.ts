@@ -28,6 +28,12 @@ const routes: Array<RouteConfig> = [
     component: () =>
       import(/* webpackChunkName: "playlist" */ '../views/Playlist.vue'),
     props: true
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () =>
+      import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue')
   }
 ];
 

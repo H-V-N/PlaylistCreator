@@ -1,9 +1,12 @@
-﻿using Abp.Localization;
+﻿using Abp.Dependency;
+using Abp.Localization;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Timing;
 using Abp.Zero;
 using Abp.Zero.Configuration;
+using SpotifyCache.Analytics.MachineLearning;
+using SpotifyCache.Analytics.MachineLearning.KNearestNeighbors;
 using SpotifyCache.Authorization.Roles;
 using SpotifyCache.Authorization.Users;
 using SpotifyCache.Configuration;
@@ -40,6 +43,8 @@ namespace SpotifyCache
 
         public override void Initialize()
         {
+            IocManager.Register<IKnnConfig, KnnConfig>(DependencyLifeStyle.Transient);
+            IocManager.Register<ISimilarityAlgorithm, Knn>(DependencyLifeStyle.Transient);
             IocManager.RegisterAssemblyByConvention(typeof(SpotifyCacheCoreModule).GetAssembly());
         }
 

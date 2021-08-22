@@ -61,6 +61,7 @@ import {
 import Vue, { PropType } from 'vue';
 import { mapGetters } from 'vuex';
 import Feature from './Feature.vue';
+import { parseArtistsFromSpotify } from '@/utils/parse-artists';
 
 export default Vue.extend({
   components: { Feature },
@@ -86,7 +87,7 @@ export default Vue.extend({
       );
     },
     artists(): string {
-      return this.track.artists.map((el) => el.name).join(', ');
+      return parseArtistsFromSpotify(this.track.artists);
     },
     ...mapGetters('statistics', ['getPercentiles'])
   },
