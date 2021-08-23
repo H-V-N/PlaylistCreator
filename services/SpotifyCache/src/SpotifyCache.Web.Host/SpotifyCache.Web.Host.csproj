@@ -3,7 +3,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <AssemblyName>SpotifyCache.Web.Host</AssemblyName>
+    <AssemblyName>SpotifyCache</AssemblyName>
     <OutputType>Exe</OutputType>
     <PackageId>SpotifyCache.Web.Host</PackageId>
     <UserSecretsId>AbpCompanyName-SpotifyCache-56C2EF2F-ABD6-4EFC-AAF2-2E81C34E8FB1</UserSecretsId>
