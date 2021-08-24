@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace SpotifyCache.HealthCheck
 
         public void GetUnhealthy()
         {
-            throw new Exception("I am unhealthy!!!!");
+            throw new UserFriendlyException("I am unhealthy!!!!");
         }
     }
 }
