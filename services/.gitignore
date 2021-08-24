@@ -4,6 +4,6 @@
 .vs/
 obj/
 bin/
-aspnet-core/src/SpotifyCache.Web.Host/App_Data/Logs/
-aspnet-core/src/SpotifyCache.Web.Mvc/App_Data/Logs/
-aspnet-core/src/SpotifyCache.Migrator/Logs/Logs.txt
+SpotifyCache/src/SpotifyCache.Web.Host/App_Data/Logs/
+SpotifyCache/src/SpotifyCache.Web.Mvc/App_Data/Logs/
+SpotifyCache/src/SpotifyCache.Migrator/Logs/Logs.txt
