@@ -104,7 +104,7 @@ export default Vue.extend({
       this.tempItems = this.items
         .splice(index + 1, this.items.length - index + 1)
         .concat(this.items.splice(0, index));
-
+      const localSelected = this.selected;
       this.incrementProgress();
       let artistIds: string[];
       BackendApi.CacheRoute.getArtistIdsToSearch(this.selected)
@@ -113,10 +113,15 @@ export default Vue.extend({
           artistIds = res;
           return this.getTopTracks(res);
         })
-        .then((res) => BackendApi.CacheRoute.getTracksToAdd(res))
+        .then((res) =>
+          BackendApi.CacheRoute.getTracksToAdd({
+            ...res,
+            [localSelected.id]: localSelected
+          })
+        )
         .then((res) => {
           this.incrementProgress();
-          if (!Object.keys(res)) {
+          if (!Object.keys(res).length) {
             this.navToPlaylist();
             throw new Error('exit');
           }
@@ -155,6 +160,7 @@ export default Vue.extend({
           result[track.id] = result[track.id] ?? track;
         });
       }
+      debugger;
       return result;
     },
     async getTrackFeatures(tracks: Record<string, Track>) {

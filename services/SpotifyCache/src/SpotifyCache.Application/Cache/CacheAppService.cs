@@ -40,9 +40,11 @@ namespace SpotifyCache.Cache
         {
             var query = _trackRepository.GetAll()
                 .Select(x => x.Id)
-                .Where(x => input.Tracks.Contains(x));
+                .Where(x => input.Tracks.Contains(x))
+                .ToList();
+            var excluded = input.Tracks.Except(query).ToList();
 
-            return input.Tracks.Except(query).ToList();
+            return excluded;
         }
 
         public async Task<List<RelatedArtistOutputDto>> RelatedArtists(RelatedArtistInputDto input)
