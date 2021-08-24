@@ -56,7 +56,8 @@ type CreateApiResult<T extends ApiArgs> = {
 
 export const CreateApi = <T extends ApiArgs>(
   config: AxiosRequestConfig,
-  routes: T
+  routes: T,
+  postConfig?: (inst: AxiosInstance) => void
 ): CreateApiResult<T> => {
   const instance = axios.create(config);
   const result: Partial<CreateApiResult<T>> = {};
@@ -65,5 +66,6 @@ export const CreateApi = <T extends ApiArgs>(
       (result[key] as keyof T) = new ctr(instance);
     }
   });
+  postConfig?.(instance);
   return result as CreateApiResult<T>;
 };

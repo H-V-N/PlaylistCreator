@@ -48,7 +48,7 @@ namespace SpotifyCache
                      typeof(SpotifyCacheApplicationModule).GetAssembly()
                  );
             Configuration.Modules.AbpAspNetCore().DefaultWrapResultAttribute.WrapOnSuccess = false;
-            Configuration.Modules.AbpAspNetCore().DefaultWrapResultAttribute.WrapOnError = false;
+            Configuration.Modules.AbpAspNetCore().DefaultWrapResultAttribute.WrapOnError = true;
 
             ConfigureTokenAuth();
         }

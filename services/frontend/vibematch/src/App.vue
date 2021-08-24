@@ -2,20 +2,35 @@
   <v-app>
     <v-main class="bg">
       <router-view />
+      <v-snackbar v-model="snackbar" color="error" timeout="7500">
+        {{ error }}
+      </v-snackbar>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 export default Vue.extend({
   name: 'App',
+  data: () => ({
+    snackbar: false
+  }),
+  computed: {
+    ...mapState(['error'])
+  },
+  watch: {
+    error(val) {
+      if (val.length) this.snackbar = true;
+    }
+  },
   created() {
     this.populateStats();
   },
   methods: {
-    ...mapActions('statistics', ['populateStats'])
+    ...mapActions('statistics', ['populateStats']),
+    ...mapMutations(['setError'])
   }
 });
 </script>
